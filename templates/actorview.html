@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Actor Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body>
+    <div class="jumbotron jumbotron-fluid bg-warning text-danger">
+      <div class="container">
+        <h1>Actor Search Result</h1>
+  </div>
+</div>
+<form method="POST">
+  <div class="container">
+  <div class="row">
+ {% for movie in actors %}
+  <div class="col-sm-3 col-md-6">
+  <div class="card" style="width:400px">
+    <img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{movie.profile_path}}" alt="Card image" style="width:100%">
+    <div class="card-body">
+      <h4 class="card-title">{{movie.name}}</h4>
+      <p class="card-text"><h6>Popularity Index : {{movie.popularity}}</h6></p>
+      <p class="card-text"><h6>Known for  : {{movie.known_for_department}}</h6> </p>
+    </div>
+  </div><br><br>
+</div>
+{% endfor %}
+  </div>
+</form>
+
+  </body>
+  </html>
+

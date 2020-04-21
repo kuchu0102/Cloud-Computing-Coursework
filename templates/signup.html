@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-text {
+  text-align: centre;
+  position: absolute;
+  top: 0%;
+  left: 40%;
+  color: #FFF5EE;
+}
+
+input[type=text],input[type=password] {
+  align:centre;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid green;
+  border-radius: 6px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #483D8B;
+  border: 2px solid black;;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+<body bgcolor='#8FBC8F'>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for msg in messages%}
+    <p>{{msg}}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith%}
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h3 style="font-size:30px">SIGNUP DETAILS</h3>
+    <form method="POST">
+      <label for="name">First Name</label><br>
+      <input type="text" id="surname" name="name" required placeholder="ex. Jhon"><br><br>
+      <label for="surname">Last Name</label><br>
+      <input type="text" id="surname" name="surname" required placeholder="ex.Taylor"><br><br>
+      <label for="username">USERNAME</label><br>
+      <input type="text" id="username" name="username" required placeholder="ex. random@123"><br><br>
+      <label for="enail">EMAIL</label><br>
+      <input type="text" id="email" name="email" required placeholder="ex. random@gmail.com"><br><br>
+      <label for="password">PASSWORD</label><br>
+      <input type="password" id="password" name="password" required placeholder="ex. 12345"><br><br>
+      <label for="confirm_password">CONFIRM PASSWORD</label><br>
+      <input type="password" id="confirm_password" name="confirm_password" required placeholder="ex. 12345"><br><br>
+
+      <input type="submit" value="CONFIRM"><br><br>
+    </form>
+
+    </div>
+</div>
+</body>
+</html>
+

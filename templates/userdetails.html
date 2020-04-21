@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User details</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body>
+    <div class="jumbotron jumbotron-fluid bg-warning text-danger">
+      <div class="container">
+        <h1>User details</h1>
+  </div>
+</div>
+<form method="POST">
+  <div class="container">
+  <div class="row">
+ {% for obj in detail %}
+  <div class="col-sm-3 col-md-6">
+  <div class="card" style="width:400px">
+    <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/768px-User_font_awesome.svg.png" alt="Card image" style="width:100%">
+    <div class="card-body">
+      <h4 class="card-title">{{obj.name}} {{obj.surname}}</h4>
+      <p class="card-text"><h6>Username  : {{obj.username}}</h6> </p>
+      <p class="card-text"><h6>Email : {{obj.email}}</h6></p>
+    </div>
+  </div><br><br>
+</div>
+{% endfor %}
+  </div>
+</form>
+
+  </body>
+  </html>

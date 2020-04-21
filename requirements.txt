@@ -1,0 +1,8 @@
+pip
+Flask
+requests
+cassandra-driver
+flash
+jsonify
+timedelta
+pprint

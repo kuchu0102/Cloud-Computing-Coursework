@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+
+input[type=text]{
+  align:centre;
+  width: 90%;
+  padding: 12px 20px;
+  margin: 16px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 3px;
+}
+
+
+
+/* Make the image fully responsive */
+</style>
+</head>
+<body>
+  <div class="jumbotron jumbotron-fluid bg-warning text-danger">
+    <div class="container">
+        <h1>Search Movies and Actors</h1>
+    </div>
+  </div>
+
+  <div class="container">
+
+  <form method="POST">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search bar" name="movie_name" size="50">
+      <button type="submit" class="btn btn-info">Search</button><br>
+
+    </div>
+<div class="row">
+  <div class="col-sm-3 col-md-6">
+  <div class="card" style="width:210px">
+    <img class="card-img-top" src="https://3.bp.blogspot.com/-Sm48caxPmK4/Tw7tqO1eCUI/AAAAAAAAuMw/sDjgGHk4SjQ/s320/Leonardo-DiCaprio-Cartoon-Photo.jpg" alt="Card image" style="width:100%">
+    <div class="card-body">
+      <input type="radio" id="actor_name" name="search" value="actor_name" checked><h5>Search Actors</h5>
+    </div>
+  </div>
+</div><br><br>
+<div class="col-sm-3 col-md-6">
+<div class="card" style="width:210px">
+  <img class="card-img-top" src="https://m.media-amazon.com/images/M/MV5BMjExMTg5OTU0NF5BMl5BanBnXkFtZTcwMjMxMzMzMw@@._V1_UX182_CR0,0,182,268_AL__QL50.jpg" alt="Card image" style="width:100%">
+  <div class="card-body">
+      <input type="radio" id="movie_name" name="search" value="movie_name"><h5>Search Movies</h5>
+  </div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</body>
+</html>
+
