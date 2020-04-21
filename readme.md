@@ -1,23 +1,37 @@
-                                   *********************************************************************
+                   *********************************************************************
 				   *********************************************************************
-                                   **                                                                 **                    
+                   **                                                                 **                    
 				   **                 Cloud Computing Mini Project                    **
 				   **                                                                 **
 				   **     https://ec2-23-22-24-111.compute-1.amazonaws.com/login      **
 				   *********************************************************************
 				   *********************************************************************
 
-The mini project has been made by using the TMDB(The movie database) https://www.themoviedb.org .
+The mini project has been made by using the TMDB(The movie database) https://www.themoviedb.org API's.
 
 INSIGHTS:
 
-1. User Sessions
-2. Hash based User Authentication
-3. HATEOS to process the image from TMDB API
+1. User Sessions.
+2. Hash based User Authentication.
+3. HATEOS to process the image from TMDB API.
 4. The application has been served over https.
-5. The application support REST API's architecture
+5. The application support REST API's architecture.
+
+Database setup:
+
+The Database used is cassandra. The database contains single table.
+
+USER_DETAILS
+The table has below fields
+* name 
+* surname
+* username
+* email
+* password
 
 REST API's:
+
+Below are the some operations on REST API's.
 
 GET:
 
@@ -47,7 +61,7 @@ Login Page:
 		Links :
 		https://ec2-23-22-24-111.compute-1.amazonaws.com/login
 
-1. Both the above provided links take to the login page.
+1. The above provided link take to the login page.
 2. The page asks for signin details and if you are a new user you can signup through the given button in the bottom of the form.
 3. The user authentication is done by fetching the details from cassandra, if the user details do not match as per the database there is message displayed like 'Password is incorrect' or 'User not Found' and you are redirected to he same page to fill up the signin details again.
 4. If the user details are correct you are redirected to the welcome page, which is the main page for user experience.
@@ -96,6 +110,11 @@ Welcome Page:
 2. There are two kinds of searches actor and movie provided by radio button.
 3. User can choose the radio button and enter the text to search.
 4. After the search user is taken two correspondoing html pages for actor and movie search.
+    Here two External API call are done
+    For movie details:
+    'https://api.themoviedb.org/3/search/movie?api_key={api_key}&language=en-US&query={movie_name}&page=1&include_adult=false'
+    For actor details:
+    'https://api.themoviedb.org/3/search/person?api_key={api_key}&language=en-US&query={actor_name}&page=1&include_adult=false'
 5. The user can search untill the session is valid and is invalidated 10 mins after login time.
 
 Logout:
@@ -106,4 +125,3 @@ Logout:
 
 1. The logout radio key is provided in the user page. 
 2. User can select the key and session will be logged out and will be redirected to the login page.
-
