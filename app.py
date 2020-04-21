@@ -2,21 +2,28 @@ from flask import Flask, render_template, request, jsonify ,session , flash , re
 import json
 import requests
 from pprint import pprint
-from werkzeug.security import generate_password_hash , check_password_hash
+from werkzeug.security import generate_password_hash , check_password_hash       ## Imports for hash based security
 from cassandra.cluster import Cluster
 from datetime import timedelta
-cluster = Cluster(contact_points=['172.17.0.2'],port=9042)                      ###Creating the cassandra connection
+cluster = Cluster(contact_points=['172.17.0.2'],port=9042)                       ###Creating the cassandra connection
 session1 = cluster.connect()                                                     ###Creating the session for the connection
 app = Flask(__name__)
-app.secret_key = '123@werkjln879'                                                  ###secret key for the session
-app.permanent_session_lifetime = timedelta(minutes=10)
+app.secret_key = '123@werkjln879'                                                ###secret key for the session
+app.permanent_session_lifetime = timedelta(minutes=10)                           ## Time for session
+
+
+##Below given are the two API template to fetch the data
 
 movie_template='https://api.themoviedb.org/3/search/movie?api_key={api_key}&language=en-US&query={movie_name}&page=1&include_adult=false'
+
 actor_template='https://api.themoviedb.org/3/search/person?api_key={api_key}&language=en-US&query={actor_name}&page=1&include_adult=false'
 
+##Redirects the user to login method
 @app.route("/")
 def redict():
     return redirect('/login') 
+
+## Method for user signup
 @app.route('/signup',methods=['GET','POST'])
 def signup():
     if request.method =='POST':
@@ -37,6 +44,7 @@ def signup():
         return redirect('/login')
     return render_template('signup.html')
 
+##method for user login and authentication
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method =='POST':
@@ -45,8 +53,8 @@ def login():
         username1 = form1['username']
         values = session1.execute("""select * from api.user_details where username='{}'""".format(username1))
         for rows in values:
-            if rows.username == form1['username']:
-                if check_password_hash(rows.password ,form1['password']):
+            if rows.username == form1['username']:                                  
+                if check_password_hash(rows.password ,form1['password']):               #Decryting the password
                     session["user"] = rows.username
                     flash('You have been Successfully logged in to my API website','success')
                 else: 
@@ -61,6 +69,7 @@ def login():
             return redirect('/user')
     return render_template('login.html')
 
+## Method for main page in the user session
 @app.route('/user', methods=['GET','POST'])
 def user():
     if "user" in session:
@@ -75,6 +84,7 @@ def user():
     else:
         return redirect('/login')
 
+## Classes to pass the data to html pages
 class movieClass:
     def __init__(self,vote_count,poster_path,mid,original_language,original_title,vote_average,overview,release_date):
         self.vote_count=vote_count
@@ -100,6 +110,7 @@ class userClass:
         self.username=username
         self.email=email
 
+## Search and call the external API's to get the data
 @app.route('/welcome',methods=['GET','POST'])
 def welcome():
     if "user" in session:
@@ -107,19 +118,19 @@ def welcome():
           form2 = request.form
           name = form2['movie_name']
           criteria = form2['search']
-          key = 'd26d0782656eaa6953dae14e27221b80'
+          key = 'd26d0782656eaa6953dae14e27221b80'                              #Key for accessing the TMDB data
           movie_name = name.replace(" ", "%20")
           if criteria=='movie_name':
 
-              tmdb_movie_url = movie_template.format(api_key = key,movie_name=movie_name)
-              resp = requests.get(tmdb_movie_url)
+              tmdb_movie_url = movie_template.format(api_key = key,movie_name=movie_name)       ##Feeding the data to the API
+              resp = requests.get(tmdb_movie_url)                                               ##Calling the external APi to get the data 
               if resp.ok:
                   movie_details = json.dumps(resp.json())
                   movie = json.loads(movie_details)
                   movies = []
                   for i in range(len(movie['results'])):
                       movies.append(movieClass(movie['results'][i]['vote_count'],movie['results'][i]['poster_path'],movie['results'][i]['id'],movie['results'][i]['original_language'],movie['results'][i]['original_title'],movie['results'][i]['vote_average'],movie['results'][i]['overview'],movie['results'][i]['release_date']))
-                  return render_template('movieview.html',movies=movies)
+                  return render_template('movieview.html',movies=movies)                ##Fetching the required data
 
               else:
                   print(resp.reason)
@@ -140,6 +151,7 @@ def welcome():
     else:
         return redirect('/login')
 
+## Logout method for session invalidation
 @app.route('/logout', methods=['GET'])
 def logout():
     if "user" in session:
@@ -149,17 +161,7 @@ def logout():
     session.pop("user",None)
     return redirect('/login')
 
-
-
-
-class showClass:
-    def __init__(self,name,surname,username,email):
-        self.name=name
-        self.surname=surname
-        self.username=username
-        self.email=email
-
-
+##Get method to get the user details
 @app.route('/records', methods=['GET'])
 def get_all_records():
     value = session1.execute("""select * from api.user_details""")
@@ -169,6 +171,7 @@ def get_all_records():
         list.append(row)
     return jsonify(list)
 
+##Delete method to delet the user details
 @app.route('/records/<user>', methods=['DELETE'])
 def delete_a_band(user):
 
@@ -180,6 +183,7 @@ def delete_a_band(user):
     else:
         return jsonify({'error':'username not found!'}), 404  
 
+#POST method to post the details of the user into Database
 @app.route('/records', methods=['POST'])
 def create_a_record():
     name=request.json['name']
