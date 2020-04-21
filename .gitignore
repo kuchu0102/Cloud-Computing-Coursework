@@ -2,3 +2,4 @@ key.pem
 cert.pem
 flask_venv/
 instance/
+.ssh
