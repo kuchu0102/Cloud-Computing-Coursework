@@ -1,4 +1,4 @@
-                              *********************************************************************
+                               *********************************************************************
 				   *********************************************************************
                                **                                                                 **                    
 				   **                 Cloud Computing Mini Project                    **
@@ -7,9 +7,9 @@
 				   *********************************************************************
 				   *********************************************************************
 
-The mini project has been made by using the TMDB(The movie database) https://www.themoviedb.org API's.
-
 INSIGHTS:
+
+The mini project has been made by using the TMDB(The movie database) https://www.themoviedb.org API's. The Application uses AWS EC2 medium instance. The Code has been written in Python Flask.
 
 1. User Sessions.
 2. Hash based User Authentication.
@@ -50,6 +50,8 @@ To delete a user from the database.
 
 * curl --insecure -X "DELETE" https://ec2-23-22-24-111.compute-1.amazonaws.com/records/<'username'>
 
+Below is the Application pages overview
+
 Login Page:
 
 * This page uses GET and POST methods both. 
@@ -67,10 +69,10 @@ Login Page:
 4. If the user details are correct you are redirected to the welcome page, which is the main page for user experience.
 6. If a new user comes in, one can click on the SIGNUP button and will be redirected to the signup page.
 
-User Sessions: 
+Security - User Sessions: 
 
 1. User session gets created after a user has signin though the login page.
-2*. The user gets 10 mins of session where he can do searches through API.
+2. The user gets 10 mins of session where he can do searches through API.
 3. In between the session if user clicks in login page he will always be taken to welcome page.
 4. After the session times end, the session automatically throughs out user to again login page.
 5. The user can always exit through logout button from the session.
