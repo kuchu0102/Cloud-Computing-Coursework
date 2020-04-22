@@ -213,7 +213,7 @@ def get_all_record(username):
 def make_public_task(row):
     new_task = {}
     for field in row:
-        new_task['href'] = url_for('get_all_records', username=field, _external=True)
+        new_task['href'] = url_for('get_all_record', username=field, _external=True)
     return new_task
 
 ##Method to fetch the record details
