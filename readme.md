@@ -37,34 +37,7 @@ To get the HATEOAS format link of the user details:
 
 * curl -i --insecure https://ec2-23-22-24-111.compute-1.amazonaws.com/record
 
-Link : https://ec2-23-22-24-111.compute-1.amazonaws.com/record
-
-* ##Implementation of HATEOAS for fetching the links for searching for a particular user details with username
-
-@app.route('/record/<username>', methods=['GET'])
-def get_all_record(username):
-    values = session1.execute("""select * from api.user_details where username='{}'""".format(username))
-    list=[]
-    for rows in values:
-        row1=dict(name=rows.name,surname=rows.surname,username=rows.username,email=rows.email)
-        list.append(row1)
-    return jsonify(list)
-
-* ## Function to create the HATEOAS
-
-def make_public_task(row):
-    new_task = {}
-    for field in row:
-        new_task['href'] = url_for('get_all_record', username=field, _external=True)
-    return new_task
-
-* ##Method to fetch the record details
-
-@app.route('/record', methods=['GET'])
-def get_tasks():
-    value = session1.execute("""select * from api.user_details""")
-    return jsonify({'Value': [make_public_task(row) for row in value]})
-
+ * Link : https://ec2-23-22-24-111.compute-1.amazonaws.com/record
 
 And after getting the data you can click and see the data of indivisual users.
 
