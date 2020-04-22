@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify ,session , flash , redirect
+from flask import Flask, render_template, request, jsonify ,session , flash , redirect , url_for , make_response
 import json
 import requests
 from pprint import pprint
@@ -194,6 +194,37 @@ def create_a_record():
     session1.execute("""INSERT INTO api.user_details (name,surname,username,email,password) VALUES ('{}','{}','{}','{}','{}')""".format(name,surname,username,email,password))
     return jsonify({'message': 'created: /records/{}'.format(name)}), 201
 
+##Implementation of HATEOAS for fetching the links for searching for a particular user details with username
+
+@app.route('/record/<username>', methods=['GET'])
+def get_all_record(username):
+    values = session1.execute("""select * from api.user_details where username='{}'""".format(username))
+    list=[]
+    for rows in values:
+        row1=dict(name=rows.name,surname=rows.surname,username=rows.username,email=rows.email)
+        list.append(row1)
+    return jsonify(list)
+
+## Function to create the HATEOAS
+
+def make_public_task(row):
+    new_task = {}
+    for field in row:
+        new_task['href'] = url_for('get_all_records', username=field, _external=True)
+    return new_task
+
+##Method to fetch the record details
+
+@app.route('/record', methods=['GET'])
+def get_tasks():
+    value = session1.execute("""select * from api.user_details""")
+    return jsonify({'Value': [make_public_task(row) for row in value]})
+
+## Error handler for incorrect paths
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=443,ssl_context=('cert.pem','key.pem'),debug=True)
