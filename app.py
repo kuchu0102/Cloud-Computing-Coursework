@@ -51,7 +51,7 @@ def login():
         session.permanent= True
         form1 = request.form
         username1 = form1['username']
-        values = session1.execute("""select * from api.user_details where username='{}'""".format(username1))
+        values = session1.execute("""select * from api.user_details where username='{}'""".format(username1))   ## Cassandra session to fetch the data
         for rows in values:
             if rows.username == form1['username']:                                  
                 if check_password_hash(rows.password ,form1['password']):               #Decryting the password
@@ -136,7 +136,7 @@ def welcome():
                   print(resp.reason)
 
           else:
-              tmdb_actor_url = actor_template.format(api_key = key,actor_name=movie_name)
+              tmdb_actor_url = actor_template.format(api_key = key,actor_name=movie_name)             ## External API call
               actor_resp = requests.get(tmdb_actor_url)
               if actor_resp.ok:
                   actor_details = json.dumps(actor_resp.json())
@@ -152,6 +152,7 @@ def welcome():
         return redirect('/login')
 
 ## Logout method for session invalidation
+
 @app.route('/logout', methods=['GET'])
 def logout():
     if "user" in session:
@@ -162,6 +163,7 @@ def logout():
     return redirect('/login')
 
 ##Get method to get the user details
+
 @app.route('/records', methods=['GET'])
 def get_all_records():
     value = session1.execute("""select * from api.user_details""")
@@ -172,6 +174,7 @@ def get_all_records():
     return jsonify(list)
 
 ##Delete method to delet the user details
+
 @app.route('/records/<user>', methods=['DELETE'])
 def delete_a_band(user):
 
