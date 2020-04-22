@@ -13,9 +13,10 @@ The mini project has been made by using the TMDB(The movie database) https://www
 
 1. User Sessions.
 2. Hash based User Authentication.
-3. HATEOS to process the image from TMDB API.
-4. The application has been served over https.
-5. The application support REST API's architecture.
+3. The application has been served over https.
+4. The application support REST API's architecture.
+5. HATEOS to get the user details
+6. HTTPS secured we pages.
 
 Database setup:
 
@@ -38,6 +39,14 @@ GET:
 To get the details of user :
 
 * curl -i --insecure https://ec2-23-22-24-111.compute-1.amazonaws.com/records
+
+To get the HATEOAS format link of the user details:
+
+* curl -i --insecure https://ec2-23-22-24-111.compute-1.amazonaws.com/record
+
+To get the Details of user by username:
+
+* curl -i --insecure https://ec2-23-22-24-111.compute-1.amazonaws.com/record
 
 POST :
 To post new user details into database user_details
